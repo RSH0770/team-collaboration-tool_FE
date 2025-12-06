@@ -20,8 +20,6 @@ const PageNavBar = ({ leftContentState }) => {
 
   const isCalendarPage = location.pathname.endsWith("/calendar");
   const isSettingPage = location.pathname.endsWith("/setting");
-  const isInvalidProject = !projectID || projectID === "undefined";
-  const isBasePath = location.pathname === `/project/${projectID}`;
 
   const currentProjectIdFromURL = projectID ? parseInt(projectID, 10) : null;
 
@@ -36,7 +34,7 @@ const PageNavBar = ({ leftContentState }) => {
 
   const fetchProjects = useCallback(async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       const response = await fetch(`${API_URL}/api/projects/me`, {
         method: "GET",
@@ -158,7 +156,6 @@ const PageNavBar = ({ leftContentState }) => {
             className="ProjectName"
             onClick={toggleModal}
             style={{
-              // isProjectListDisabled를 기준으로 스타일 적용
               cursor: isProjectListDisabled ? "default" : "pointer",
               opacity: isProjectListDisabled ? 0.6 : 1,
             }}
