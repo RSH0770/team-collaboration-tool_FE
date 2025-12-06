@@ -10,14 +10,14 @@ const API_URL = import.meta.env.VITE_DEV_PROXY_URL;
 
 const NavBar = () => {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   const [projectCode, setProjectCode] = useState("");
   const [userName, setUserName] = useState("");
   const [fullName, setFullName] = useState("");
 
   useEffect(() => {
     const loadUserFromStorage = () => {
-      const stored = localStorage.getItem("user");
+      const stored = sessionStorage.getItem("user");
 
       if (!stored) {
         setFullName("");
@@ -62,7 +62,7 @@ const NavBar = () => {
 
       alert("프로젝트가 생성되었습니다. 프로젝트 설정 페이지로 이동합니다.");
 
-      navigate(`/project/${newProjectId}/setting`);
+      navigate(`/project/${newProjectId}/projectsetting`);
     } catch (error) {
       console.error("프로젝트 생성 중 오류: ", error);
       alert("프로젝트 생성에 실패했습니다.");
@@ -100,8 +100,8 @@ const NavBar = () => {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("user");
     navigate("/");
   };
 
